@@ -50,4 +50,26 @@ public class Ship{
 		this.energy = energy;
 	}
 
+	public void useEnergy(int usage){
+		this.energy = this.energy - usage;
+	}
+
+	public void generateEnergy(int generated){
+		this.energy = this.energy + generated;
+	}
+
+	public void checkEnergy(){
+		if(this.getEnergy() <= 0) System.out.println("Your ship has run out of energy, take some time to recharge.");
+	}
+
+	public void checkAmmo(){
+		if(this.getEquippedMissile().getAmount() <= 0) removeMissile();
+	}
+
+	public void removeMissile(){
+		this.equippedMissile = null;
+	}
+
+	//TODO make removable shield
+
 }

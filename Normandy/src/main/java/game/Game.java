@@ -75,6 +75,6 @@ public class Game {
 	E = Explore
 	R = Rest
 	F = Flee
-	B = Battle
+	B = Encounter
 	 */
 }

@@ -1,7 +1,8 @@
 package ship;
 
+import org.apache.commons.lang.math.RandomUtils;
+
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * Created by mzwart on 16-11-2016.
@@ -45,10 +46,19 @@ public class Missile implements Item{
 		this.weight = weight;
 	}*/
 
+	public void fireMissile(){
+		if (this.amount > 0) this.amount = this.amount--;
+		if (this.amount <= 0) removeMissile();
+	}
+
+	private void removeMissile(){
+		//TODO make it unequip and disappear
+	}
+
 	public static Missile generateMissile(){
 		Missile missile = new Missile();
 		Random rng = new Random();
-		missile.setId(Integer.valueOf(UUID.randomUUID().toString()));
+		missile.setId(RandomUtils.nextInt(10));
 		missile.setDamage(rng.nextInt(400));
 		missile.setAmount(rng.nextInt(50));
 		return missile;
