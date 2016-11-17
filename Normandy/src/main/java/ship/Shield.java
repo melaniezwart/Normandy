@@ -1,5 +1,7 @@
 package ship;
 
+import org.apache.commons.lang.math.RandomUtils;
+
 import java.util.Random;
 import java.util.UUID;
 
@@ -38,7 +40,7 @@ public class Shield implements Item {
 	public static Shield generateShield(){
 		Shield shield = new Shield();
 		Random rng = new Random();
-		shield.setId(Integer.valueOf(UUID.randomUUID().toString()));
+		shield.setId(RandomUtils.nextInt(10));
 		shield.setEnergy(rng.nextInt(15) + 5);
 		shield.setProtection(1000);
 		return shield;

@@ -1,5 +1,7 @@
 package ship;
 
+import org.apache.commons.lang.math.RandomUtils;
+
 import java.util.Random;
 import java.util.UUID;
 
@@ -45,6 +47,11 @@ public class Armor implements Item {
 		this.id = id;
 	}
 
+	public void damageHull(int damage){
+		this.hullHealth = this.hullHealth - damage;
+	}
+	//TODO make some kind of regenerate hull thing.
+
 	/*	public int getWeight() {
 		return weight;
 	}
@@ -56,7 +63,7 @@ public class Armor implements Item {
 	public static Armor generateArmor(){
 		Armor armor = new Armor();
 		Random rng = new Random();
-		armor.setId(Integer.valueOf(UUID.randomUUID().toString()));
+		armor.setId(RandomUtils.nextInt(10));
 		armor.setHullHealth(rng.nextInt(1000) + 500);
 		int def1 = rng.nextInt(100);
 		armor.setLaserDefence(def1);

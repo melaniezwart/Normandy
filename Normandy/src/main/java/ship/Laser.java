@@ -1,5 +1,7 @@
 package ship;
 
+import org.apache.commons.lang.math.RandomUtils;
+
 import java.util.Random;
 import java.util.UUID;
 
@@ -47,7 +49,7 @@ public class Laser implements Item {
 	public static Laser generateLaser(){
 		Laser laser = new Laser();
 		Random rng = new Random();
-		laser.setId(Integer.valueOf(UUID.randomUUID().toString()));
+		laser.setId(RandomUtils.nextInt(10));
 		laser.setDamage(rng.nextInt(400));
 		laser.setEnergyCost(rng.nextInt(20) + 5);
 		return laser;

@@ -39,8 +39,6 @@ public class Normandy extends Ship{
 	}
 
 
-
-
 /*	public int getWeightAllowed() {
 		return weightAllowed;
 	}
