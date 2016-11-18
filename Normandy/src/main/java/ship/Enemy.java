@@ -12,6 +12,7 @@ public class Enemy extends Ship{
 		enemy.setArmor(Armor.generateArmor());
 		enemy.setEquippedLaser(Laser.generateLaser());
 		enemy.setEquippedMissile(Missile.generateMissile());
+		enemy.setGenerator(Generator.generateGenerator());
 		Random rng = new Random();
 		enemy.setEnergy(rng.nextInt(2500)+1000);
 		return enemy;
