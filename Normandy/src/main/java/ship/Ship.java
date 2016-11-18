@@ -8,6 +8,7 @@ public class Ship{
 	Missile equippedMissile;
 	Laser equippedLaser;
 	Armor armor; //12 to 120 (divide by 3, turn to int, that's your percentage
+	Generator generator;
 	int energy;
 
 	public String getName() {
@@ -68,6 +69,14 @@ public class Ship{
 
 	public void removeMissile(){
 		this.equippedMissile = null;
+	}
+
+	public Generator getGenerator() {
+		return generator;
+	}
+
+	public void setGenerator(Generator generator) {
+		this.generator = generator;
 	}
 
 	//TODO make removable shield

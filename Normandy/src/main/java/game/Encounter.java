@@ -24,27 +24,78 @@ public class Encounter {
 		rng = new Random();
 	}
 
+	//Player attacks
+	//
+	//
 	public void fireLaser(){
 		if(normandy.getEquippedLaser().getEnergyCost() < normandy.getEnergy()) {
 			normandy.useEnergy(normandy.getEquippedLaser().getEnergyCost());
 			int damage = normandy.getEquippedLaser().getDamage();
-			int damageReduction = (enemy.getArmor().getLaserDefence() / 2) / 100;
-			int damageDone = damage * damageReduction;
-			enemy.getArmor().damageHull(damageDone);
+			double damageReduction = (double)enemy.getArmor().getLaserDefence() / 300.0;
+			int totalDamage = damage - (int)(damage * damageReduction);
+			enemy.getArmor().damageHull(totalDamage);
+			System.out.println("You fired your laser at the enemy.");
 		} else System.out.println("You do not have enough energy to fire your lasers.");
 	}
 
 	public void fireMissile(){
+		if(normandy.getEquippedMissile().getAmount() <= 0){
+			normandy.removeMissile();
+		}
 		if(normandy.getEquippedMissile() != null){
 			normandy.getEquippedMissile().fireMissile();
 			int damage = normandy.getEquippedMissile().getDamage();
-			int damageReduction = (enemy.getArmor().getMissileDefence() / 2) / 100;
-			int damageDone = damage * damageReduction;
-			enemy.getArmor().damageHull(damageDone);
+			double damageReduction = (double)enemy.getArmor().getMissileDefence() / 300.0;
+			int totalDamage = damage - (int)(damage * damageReduction);
+			enemy.getArmor().damageHull(totalDamage);
 			normandy.checkAmmo();
+			System.out.println("You fired your missile at the enemy.");
 		} else System.out.println("You do not currently have any missiles equpped.");
 	}
 
+	//Enemy attacks
+	//
+	//
+	public void enemyFireMissile(){
+		if(enemy.getEquippedMissile().getAmount() <= 0){
+			enemy.removeMissile();
+		}
+		if(enemy.getEquippedMissile() != null){
+			enemy.getEquippedMissile().fireMissile();
+			int damage = enemy.getEquippedMissile().getDamage();
+			double damageReduction = (double)normandy.getArmor().getMissileDefence() / 300.0;
+			int totalDamage = damage - (int)(damage * damageReduction);
+			normandy.getArmor().damageHull(totalDamage);
+			enemy.checkAmmo();
+			System.out.println("Your enemy hit you with a missile.");
+		} else {
+			System.out.println("Your enemy tried to fire a missile but ran out.");
+			enemyRepairRest();
+		}
+	}
+
+	public void enemyFireLaser(){
+		if(enemy.getEquippedLaser().getEnergyCost() < enemy.getEnergy()) {
+			enemy.useEnergy(enemy.getEquippedLaser().getEnergyCost());
+			int damage = enemy.getEquippedLaser().getDamage();
+			double damageReduction = (double)normandy.getArmor().getLaserDefence() / 300.0;
+			int totalDamage = damage - (int)(damage * damageReduction);
+			normandy.getArmor().damageHull(totalDamage);
+			System.out.println("Your enemy hit you with their lasers.");
+		} else {
+			System.out.println("Your enemy tried to fire their lasers but they seem to have run out of energy.");
+			enemyRepairRest();
+		}
+	}
+
+	public void enemyRepairRest(){
+		enemy.getArmor().repairHull();
+		enemy.generateEnergy(enemy.getGenerator().getEnergyPerTurn() * 2);
+	}
+
+	//Scanning
+	//
+	//
 	public void scanEnemy(){
 		if (test == false){
 			switchcase = rng.nextInt(9);
@@ -91,6 +142,17 @@ public class Encounter {
 		if(weapon.equals(weakness)) System.out.println("The enemy's strength is your weakness, you might want to turn on your shield.");
 		else System.out.println("You seem well protected against the enemy's attacks.");
 	}
+
+	public void checkStatus(){
+		int currentHull = normandy.getArmor().getHullHealth();
+		int maxHull = normandy.getArmor().getMaxHullHealth();
+		if(currentHull < maxHull / 10) System.out.println("Your ship is critically damaged!");
+		if(currentHull < maxHull / 4) System.out.println("Your ship is badly damaged.");
+		else if (currentHull < maxHull / 2) System.out.println("Your ship is damaged.");
+		else if (currentHull < (double)maxHull / 1.3) System.out.println("Your ships has suffered a few hits but you're still fine.");
+		else System.out.println("Your ships is doing fine.");
+	}
+
 
 	//inactive
 	private void checkEnergy(){

@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import ship.Enemy;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Created by mzwart on 17-11-2016.
  */
@@ -16,6 +18,45 @@ public class EncounterTest {
 	public void setup(){
 		encounter = new Encounter(TestObjectHelper.createNormandy(), Enemy.generateEnemy());
 		encounter.setTest(true);
+	}
+
+	@Test
+	public void testFireMissile(){
+		int startMissileAmount = encounter.normandy.getEquippedMissile().getAmount();
+		int baseDamage = encounter.normandy.getEquippedMissile().getDamage();
+		double damageReduction = (double)encounter.enemy.getArmor().getMissileDefence() / 300.0;
+		int totalDamage = baseDamage - (int)(baseDamage * damageReduction);
+		int startEnemyHull = encounter.enemy.getArmor().getHullHealth();
+		encounter.fireMissile();
+
+		assertEquals(startEnemyHull - totalDamage, encounter.enemy.getArmor().getHullHealth());
+		assertEquals(startMissileAmount - 1, encounter.normandy.getEquippedMissile().getAmount());
+	}
+
+	@Test
+	public void testFireLaser(){
+		int startEnergy = encounter.normandy.getEnergy();
+		int energyCost = encounter.normandy.getEquippedLaser().getEnergyCost();
+		int baseDamage = encounter.normandy.getEquippedLaser().getDamage();
+		double damageReduction = (double)encounter.enemy.getArmor().getLaserDefence() / 300;
+		int totalDamage = baseDamage - (int)(baseDamage * damageReduction);
+		int startEnemyHull = encounter.enemy.getArmor().getHullHealth();
+		encounter.fireLaser();
+
+		assertEquals(startEnemyHull - totalDamage, encounter.enemy.getArmor().getHullHealth());
+		assertEquals(startEnergy - energyCost, encounter.normandy.getEnergy());
+	}
+
+	@Test
+	public void testOutOfEnergy(){
+		encounter.normandy.setEnergy(0);
+		encounter.fireLaser();
+	}
+
+	@Test
+	public void testOutOfMissiles(){
+		encounter.normandy.getEquippedMissile().setAmount(0);
+		encounter.fireMissile();
 	}
 
 	@Test
@@ -62,9 +103,6 @@ public class EncounterTest {
 
 		encounter.setSwitchcase(2);
 		encounter.enemy.getArmor().setHullHealth(1500);
-		encounter.scanEnemy();
-
-		encounter.enemy.getArmor().setHullHealth(1000);
 		encounter.scanEnemy();
 
 		encounter.enemy.getArmor().setHullHealth(250);

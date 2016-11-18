@@ -47,7 +47,7 @@ public class Missile implements Item{
 	}*/
 
 	public void fireMissile(){
-		if (this.amount > 0) this.amount = this.amount--;
+		if (this.amount > 0) this.amount = --this.amount;
 		if (this.amount <= 0) removeMissile();
 	}
 
