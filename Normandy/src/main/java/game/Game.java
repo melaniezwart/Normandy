@@ -27,7 +27,7 @@ public class Game {
 	}
 
 	private void start(){
-		System.out.println("game.Captain, welcome aboard the Normandy. What's your name?");
+		System.out.println("Captain, welcome aboard the Normandy. What's your name?");
 		Captain player = new Captain(scan.nextLine());
 		normandy = new Normandy(player);
 		turn = new PassTurn(normandy);
@@ -48,20 +48,27 @@ public class Game {
 					break;
 				case "e":
 					System.out.println("You picked exploring");
+					explore();
 					break;
 				case "r":
 					System.out.println("You found a quiet spot to rest");
+					rest();
 					break;
 			}
 		}
 	}
 
-	public void scavenge() {
-
+	private void scavenge() {
+		turn.passScavengingTurn();
 	}
 
+	private void explore() {
+		turn.passRegularTurn();
+	}
 
-
+	private void rest(){
+		turn.passRestTurn();
+	}
 
 	private void encounterRoll(){
 		int heat = normandy.getHeat();
@@ -82,10 +89,13 @@ public class Game {
 				case "f":
 				case "s":
 					encounter.scanEnemy();
+					break;
 				case "m":
 					encounter.fireMissile();
+					break;
 				case "l":
 					encounter.fireLaser();
+					break;
 			}
 
 			//Random enemy action

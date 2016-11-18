@@ -147,10 +147,10 @@ public class Encounter {
 		int currentHull = normandy.getArmor().getHullHealth();
 		int maxHull = normandy.getArmor().getMaxHullHealth();
 		if(currentHull < maxHull / 10) System.out.println("Your ship is critically damaged!");
-		if(currentHull < maxHull / 4) System.out.println("Your ship is badly damaged.");
+		else if(currentHull < maxHull / 4) System.out.println("Your ship is badly damaged.");
 		else if (currentHull < maxHull / 2) System.out.println("Your ship is damaged.");
-		else if (currentHull < (double)maxHull / 1.3) System.out.println("Your ships has suffered a few hits but you're still fine.");
-		else System.out.println("Your ships is doing fine.");
+		else if (currentHull < (double)maxHull / 1.3) System.out.println("Your ship has suffered a few hits but you're still fine.");
+		else System.out.println("Your ship is doing fine.");
 	}
 
 
@@ -158,7 +158,6 @@ public class Encounter {
 	private void checkEnergy(){
 		if(enemy.getEnergy() < 500) System.out.println("Your enemy is running out of energy.");
 	}
-
 
 	public int getSwitchcase() {
 		return switchcase;
