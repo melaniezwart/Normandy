@@ -13,6 +13,7 @@ public class Armor implements Item {
 	private int hullHealth;	//low: 500, high: 1500
 	private int laserDefence;
 	private int missileDefence;
+	private int maxHullHealth;
 	//int weight;
 
 	public int getHullHealth() {
@@ -50,6 +51,15 @@ public class Armor implements Item {
 	public void damageHull(int damage){
 		this.hullHealth = this.hullHealth - damage;
 	}
+
+	public int getMaxHullHealth() {
+		return maxHullHealth;
+	}
+
+	public void setMaxHullHealth(int maxHullHealth) {
+		this.maxHullHealth = maxHullHealth;
+	}
+
 	//TODO make some kind of regenerate hull thing.
 
 	/*	public int getWeight() {
@@ -65,9 +75,15 @@ public class Armor implements Item {
 		Random rng = new Random();
 		armor.setId(RandomUtils.nextInt(10));
 		armor.setHullHealth(rng.nextInt(1000) + 500);
-		int def1 = rng.nextInt(100);
+		armor.setMaxHullHealth(armor.getHullHealth());
+		int def1 = rng.nextInt(120);
 		armor.setLaserDefence(def1);
-		armor.setMissileDefence(100-def1);
+		armor.setMissileDefence(120-def1);
 		return armor;
+	}
+
+	public void repairHull(){
+		int repairAmount = this.getHullHealth() / 10;
+		this.setHullHealth(repairAmount);
 	}
 }

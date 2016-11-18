@@ -15,9 +15,9 @@ public class Captain {
 	}
 
 	public void levelUp(){
-		if(this.experience > expArray[this.level]){
-			this.experience -= expArray[this.level];
-			this.level++;
+		while(this.experience > expArray[this.level]) {
+				this.experience -= expArray[this.level];
+				this.level++;
 		}
 	}
 
