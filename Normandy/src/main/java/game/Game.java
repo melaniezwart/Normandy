@@ -120,7 +120,7 @@ public class Game {
 			}
 			encounter.checkStatus();
 		}
-		if(enemy.getArmor().getHullHealth() <= 0) System.out.println("Congrats, you won!");
+		if(enemy.getArmor().getHullHealth() <= 0) encounter.win(normandy);
 		else if (normandy.getArmor().getHullHealth() <= 0) System.out.println("You lost");
 		else System.out.println("Something went wrong. Investigate pl0x");
 	}

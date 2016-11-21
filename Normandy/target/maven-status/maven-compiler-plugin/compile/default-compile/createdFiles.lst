@@ -1,12 +1,13 @@
 game\Game.class
-ship\Laser.class
 ship\Ship.class
-ship\Shield.class
 ship\Normandy.class
+game\PassTurn.class
+game\Encounter.class
 ship\Enemy.class
-game\Battle.class
 ship\Armor.class
 ship\Generator.class
-ship\Item.class
 ship\Missile.class
+ship\Laser.class
+ship\Shield.class
+ship\Item.class
 game\Captain.class

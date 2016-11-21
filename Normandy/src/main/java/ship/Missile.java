@@ -46,15 +46,6 @@ public class Missile implements Item{
 		this.weight = weight;
 	}*/
 
-	public void fireMissile(){
-		if (this.amount > 0) this.amount = --this.amount;
-		if (this.amount <= 0) removeMissile();
-	}
-
-	private void removeMissile(){
-		//TODO make it unequip and disappear
-	}
-
 	public static Missile generateMissile(){
 		Missile missile = new Missile();
 		Random rng = new Random();

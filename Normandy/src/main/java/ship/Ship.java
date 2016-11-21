@@ -4,20 +4,20 @@ package ship;
  * Created by mzwart on 16-11-2016.
  */
 public class Ship{
-	String name;
+//	String name;
 	Missile equippedMissile;
 	Laser equippedLaser;
 	Armor armor; //12 to 120 (divide by 3, turn to int, that's your percentage
 	Generator generator;
 	int energy;
 
-	public String getName() {
+/*	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
+	}*/
 
 	public Missile getEquippedMissile() {
 		return equippedMissile;
@@ -57,10 +57,6 @@ public class Ship{
 
 	public void generateEnergy(int generated){
 		this.energy = this.energy + generated;
-	}
-
-	public void checkEnergy(){
-		if(this.getEnergy() <= 0) System.out.println("Your ship has run out of energy, take some time to recharge.");
 	}
 
 	public void checkAmmo(){
