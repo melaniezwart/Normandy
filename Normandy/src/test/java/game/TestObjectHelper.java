@@ -26,4 +26,10 @@ public class TestObjectHelper {
 		captain.setExperience(RandomUtils.nextInt(200));
 		return captain;
 	}
+
+	public static Normandy createEmptyNormandy(){
+		Normandy normandy = new Normandy(createCaptain());
+		normandy.setEnergy(RandomUtils.nextInt(5000)+2500);
+		return normandy;
+	}
 }

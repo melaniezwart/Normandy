@@ -1,7 +1,6 @@
 package game;
 
-import ship.Enemy;
-import ship.Normandy;
+import ship.*;
 
 import java.util.Random;
 
@@ -43,11 +42,11 @@ public class Encounter {
 			normandy.removeMissile();
 		}
 		if(normandy.getEquippedMissile() != null){
-			normandy.getEquippedMissile().fireMissile();
 			int damage = normandy.getEquippedMissile().getDamage();
 			double damageReduction = (double)enemy.getArmor().getMissileDefence() / 300.0;
 			int totalDamage = damage - (int)(damage * damageReduction);
 			enemy.getArmor().damageHull(totalDamage);
+			normandy.getEquippedMissile().setAmount(normandy.getEquippedMissile().getAmount() - 1);
 			normandy.checkAmmo();
 			System.out.println("You fired your missile at the enemy.");
 		} else System.out.println("You do not currently have any missiles equpped.");
@@ -61,11 +60,11 @@ public class Encounter {
 			enemy.removeMissile();
 		}
 		if(enemy.getEquippedMissile() != null){
-			enemy.getEquippedMissile().fireMissile();
 			int damage = enemy.getEquippedMissile().getDamage();
 			double damageReduction = (double)normandy.getArmor().getMissileDefence() / 300.0;
 			int totalDamage = damage - (int)(damage * damageReduction);
 			normandy.getArmor().damageHull(totalDamage);
+			enemy.getEquippedMissile().setAmount(enemy.getEquippedMissile().getAmount() - 1);
 			enemy.checkAmmo();
 			System.out.println("Your enemy hit you with a missile.");
 		} else {
@@ -155,24 +154,53 @@ public class Encounter {
 
 
 	//inactive
-	private void checkEnergy(){
-		if(enemy.getEnergy() < 500) System.out.println("Your enemy is running out of energy.");
-	}
-
-	public int getSwitchcase() {
-		return switchcase;
-	}
+	//private void checkEnergy(){
+	//	if(enemy.getEnergy() < 500) System.out.println("Your enemy is running out of energy.");
+	//}
 
 	public void setSwitchcase(int switchcase) {
 		this.switchcase = switchcase;
 	}
 
-	public boolean isTest() {
-		return test;
-	}
-
 	public void setTest(boolean test) {
 		this.test = test;
+	}
+
+	public void win(Normandy normandy){
+		System.out.print("Congrats, you won! ");
+		//experience
+		int experience = rng.nextInt(20);
+		normandy.getCaptain().addExperience(experience);
+		System.out.print("You gained " + experience + " experience points and looted ");
+		//loot
+		int coins = rng.nextInt(20);
+		normandy.getCaptain().addCoins(coins);
+		System.out.println(coins + " coins.");
+
+		int lootRoll = rng.nextInt(10);
+		if(lootRoll > 8){
+			System.out.print("You found a new ");
+			switch(rng.nextInt(4)){
+				case 0:
+					normandy.getCargoBay().get(0).add(Armor.generateArmor());
+					System.out.println("armor.");
+					break;
+				case 1:
+					normandy.getCargoBay().get(1).add(Missile.generateMissile());
+					System.out.println("missile.");
+					break;
+				case 2:
+					normandy.getCargoBay().get(2).add(Laser.generateLaser());
+					System.out.println("laser.");
+					break;
+				case 3:
+					normandy.getCargoBay().get(3).add(Generator.generateGenerator());
+					System.out.println("generator.");
+					break;
+			}
+			System.out.println("It has been placed in your cargo bay.");
+
+		}
 	}
 
 

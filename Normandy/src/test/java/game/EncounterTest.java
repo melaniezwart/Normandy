@@ -4,8 +4,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ship.Enemy;
+import ship.Normandy;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by mzwart on 17-11-2016.
@@ -57,6 +60,54 @@ public class EncounterTest {
 	public void testOutOfMissiles(){
 		encounter.normandy.getEquippedMissile().setAmount(0);
 		encounter.fireMissile();
+	}
+
+	@Test
+	public void testEnemyMissile(){
+		int startHealth = encounter.normandy.getArmor().getHullHealth();
+		int startAmount = encounter.enemy.getEquippedMissile().getAmount();
+		int baseDamage = encounter.enemy.getEquippedMissile().getDamage();
+		double damageReduction = (double)encounter.normandy.getArmor().getMissileDefence() / 300;
+		int totalDamage = baseDamage - (int)(baseDamage * damageReduction);
+		encounter.enemyFireMissile();
+		encounter.checkStatus();
+
+		assertEquals(startHealth - totalDamage, encounter.normandy.getArmor().getHullHealth());
+		assertEquals(startAmount - 1, encounter.enemy.getEquippedMissile().getAmount());
+	}
+
+	@Test
+	public void testEnemyLaser(){
+		int startHealth = encounter.normandy.getArmor().getHullHealth();
+		int startEnergy = encounter.enemy.getEnergy();
+		int energyCost = encounter.enemy.getEquippedLaser().getEnergyCost();
+		int baseDamage = encounter.enemy.getEquippedLaser().getDamage();
+		double damageReduction = (double)encounter.normandy.getArmor().getLaserDefence() / 300;
+		int totalDamage = baseDamage - (int)(baseDamage * damageReduction);
+		encounter.enemyFireLaser();
+		encounter.checkStatus();
+
+		assertEquals(startHealth - totalDamage, encounter.normandy.getArmor().getHullHealth());
+		assertEquals(startEnergy - energyCost, encounter.enemy.getEnergy());
+	}
+
+	@Test
+	public void testEnemyRest(){
+		int startHull = encounter.enemy.getArmor().getHullHealth();
+		int startEnergy = encounter.enemy.getEnergy();
+		encounter.enemyRepairRest();
+		assertEquals(startHull + (startHull / 10), encounter.enemy.getArmor().getHullHealth());
+		assertEquals(startEnergy + (encounter.enemy.getGenerator().getEnergyPerTurn() * 2), encounter.enemy.getEnergy());
+	}
+
+	@Test
+	public void testWin(){
+		Normandy normandy = TestObjectHelper.createNormandy();
+		int startCoins = normandy.getCaptain().getCoins();
+		int startExp = normandy.getCaptain().getExperience();
+		encounter.win(normandy);
+		assertNotEquals(startCoins, normandy.getCaptain().getCoins());
+		assertNotEquals(startExp, normandy.getCaptain().getExperience());
 	}
 
 	@Test

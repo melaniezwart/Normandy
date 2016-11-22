@@ -77,13 +77,14 @@ public class Armor implements Item {
 		armor.setHullHealth(rng.nextInt(1000) + 500);
 		armor.setMaxHullHealth(armor.getHullHealth());
 		int def1 = rng.nextInt(120);
+		int def2 = 120 - def1;
 		armor.setLaserDefence(def1);
-		armor.setMissileDefence(120-def1);
+		armor.setMissileDefence(def2);
 		return armor;
 	}
 
 	public void repairHull(){
 		int repairAmount = this.getHullHealth() / 10;
-		this.setHullHealth(repairAmount);
+		this.setHullHealth(this.getHullHealth() + repairAmount);
 	}
 }

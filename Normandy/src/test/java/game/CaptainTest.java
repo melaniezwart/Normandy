@@ -35,7 +35,7 @@ public class CaptainTest {
 		captain.addCoins(RandomUtils.nextInt(500));
 		captain.changeCoins(-100);
 		captain.setExperience(RandomUtils.nextInt(500));
-		captain.setLevel(RandomUtils.nextInt(10));
+		captain.setLevel(RandomUtils.nextInt(10)+10);
 		captain.setName("Name 2");
 
 		assertNotEquals(coins, captain.getCoins());
