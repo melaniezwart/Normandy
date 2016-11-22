@@ -11,12 +11,13 @@ import java.util.List;
 public class Normandy extends Ship{
 	private Captain captain;
 	private int heat;
-	private List<List> cargoBay = new ArrayList<>(4);
+	private List<List> cargoBay = new ArrayList<>(5);
 	//0 = armor, 1 = missiles, 2 = lasers, 3 = generators
 	private List<Armor> armorBay = new ArrayList<>(3);
 	private List<Missile> missileBay = new ArrayList<>(3);
 	private List<Laser> laserBay = new ArrayList<>(3);
 	private List<Generator> generatorBay = new ArrayList<>(3);
+	private List<Shield> shieldBay = new ArrayList<>(3);
 
 //	int weightAllowed;
 
@@ -26,10 +27,12 @@ public class Normandy extends Ship{
 		this.setEquippedLaser(Laser.generateLaser());
 		this.setEquippedMissile(Missile.generateMissile());
 		this.setGenerator(Generator.generateGenerator());
+		this.setShield(Shield.generateShield());
 		cargoBay.add(armorBay);
 		cargoBay.add(missileBay);
 		cargoBay.add(laserBay);
 		cargoBay.add(generatorBay);
+		cargoBay.add(shieldBay);
 	}
 
 	public Captain getCaptain() {
@@ -55,9 +58,11 @@ public class Normandy extends Ship{
 		showMissiles(cargoBay.get(1));
 		showLasers(cargoBay.get(2));
 		showGenerators(cargoBay.get(3));
+		showShields(cargoBay.get(4));
 	}
 
 	private void showArmor(List<Armor> list){
+		if(list.isEmpty()) System.out.println("You have no armor in your cargo bay.");
 		for(int i = 0 ; i < list.size() ; i++){
 			System.out.print((i + 1) + " Armor - Hull: " + list.get(i).getHullHealth());
 			System.out.print(", Laser def: " + list.get(i).getLaserDefence());
@@ -66,6 +71,7 @@ public class Normandy extends Ship{
 	}
 
 	private void showMissiles(List<Missile> list){
+		if(list.isEmpty()) System.out.println("You have no missiles in your cargo bay.");
 		for(int i = 0 ; i < list.size() ; i++){
 			System.out.print((i + 1) + " Missiles - Damage: " + list.get(i).getDamage());
 			System.out.println(", Amount: " + list.get(i).getAmount());
@@ -73,6 +79,7 @@ public class Normandy extends Ship{
 	}
 
 	private void showLasers(List<Laser> list){
+		if(list.isEmpty()) System.out.println("You have no lasers in your cargo bay.");
 		for(int i = 0 ; i < list.size() ; i++){
 			System.out.print((i + 1) + " Lasers - Damage: " + list.get(i).getDamage());
 			System.out.println(", Energy cost: " + list.get(i).getEnergyCost());
@@ -80,8 +87,17 @@ public class Normandy extends Ship{
 	}
 
 	private void showGenerators(List<Generator> list){
+		if(list.isEmpty()) System.out.println("You have no generators in your cargo bay.");
 		for(int i = 0 ; i < list.size() ; i++){
 			System.out.println((i + 1) + " Generator - Energy gen: " + list.get(i).getEnergyPerTurn());
+		}
+	}
+
+	private void showShields(List<Shield> list){
+		if(list.isEmpty()) System.out.println("You have no shields in your cargo bay.");
+		for(int i = 0 ; i < list.size() ; i++){
+			System.out.print((i + 1) + " Shield - Energy cost: " + list.get(i).getEnergyCost());
+			System.out.println(", Protection: " + list.get(i).getProtection());
 		}
 	}
 
@@ -138,6 +154,18 @@ public class Normandy extends Ship{
 		this.setGenerator(null);
 	}
 
+	public void equipShield(Shield shield){
+		if(this.getShield() != null){
+			this.unequipShield();
+		}
+		this.setShield(shield);
+	}
+
+	public void unequipShield(){
+		cargoBay.get(4).add(this.getShield());
+		this.setShield(null);
+	}
+
 	public void compareArmor(){
 		System.out.println("Equipped:");
 		System.out.print("Armor - Hull: " + getArmor().getMaxHullHealth());
@@ -168,6 +196,14 @@ public class Normandy extends Ship{
 		System.out.println("Generator - Energy gen: " + getGenerator().getEnergyPerTurn());
 		System.out.println("In cargo bay:");
 		showGenerators(cargoBay.get(3));
+	}
+
+	public void compareShields(){
+		System.out.println("Equipped:");
+		System.out.print("Shields - Energy cost: " + getShield().getEnergyCost());
+		System.out.println(", Protection: " + getShield().getProtection());
+		System.out.println("In cargo bay:");
+		showShields(cargoBay.get(4));
 	}
 
 	/*	public int getWeightAllowed() {

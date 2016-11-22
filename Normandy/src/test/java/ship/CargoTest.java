@@ -24,16 +24,19 @@ public class CargoTest {
 		Missile missile = Missile.generateMissile();
 		Laser laser = Laser.generateLaser();
 		Generator generator = Generator.generateGenerator();
+		Shield shield = Shield.generateShield();
 
 		normandy.equipArmor(armor);
 		normandy.equipMissile(missile);
 		normandy.equipLaser(laser);
 		normandy.equipGenerator(generator);
+		normandy.equipShield(shield);
 
 		assertEquals(armor, normandy.getArmor());
 		assertEquals(missile, normandy.getEquippedMissile());
 		assertEquals(laser, normandy.getEquippedLaser());
 		assertEquals(generator, normandy.getGenerator());
+		assertEquals(shield, normandy.getShield());
 	}
 
 	@Test
@@ -43,6 +46,7 @@ public class CargoTest {
 		Missile missile = Missile.generateMissile();
 		Laser laser = Laser.generateLaser();
 		Generator generator = Generator.generateGenerator();
+		Shield shield = Shield.generateShield();
 
 		emptyNormandy(normandy);
 
@@ -50,6 +54,7 @@ public class CargoTest {
 		normandy.equipMissile(missile);
 		normandy.equipLaser(laser);
 		normandy.equipGenerator(generator);
+		normandy.equipShield(shield);
 
 		unequipNormandy(normandy);
 
@@ -57,11 +62,13 @@ public class CargoTest {
 		assertNull(normandy.getEquippedMissile());
 		assertNull(normandy.getEquippedLaser());
 		assertNull(normandy.getGenerator());
+		assertNull(normandy.getShield());
 
 		assertEquals(armor, normandy.getCargoBay().get(0).get(0));
 		assertEquals(missile, normandy.getCargoBay().get(1).get(0));
 		assertEquals(laser, normandy.getCargoBay().get(2).get(0));
 		assertEquals(generator, normandy.getCargoBay().get(3).get(0));
+		assertEquals(shield, normandy.getCargoBay().get(4).get(0));
 
 		normandy.listCargoBay();
 	}
@@ -73,11 +80,13 @@ public class CargoTest {
 		Missile missile = Missile.generateMissile();
 		Laser laser = Laser.generateLaser();
 		Generator generator = Generator.generateGenerator();
+		Shield shield = Shield.generateShield();
 
 		Armor secArmor = Armor.generateArmor();
 		Missile secMissile = Missile.generateMissile();
 		Laser secLaser = Laser.generateLaser();
 		Generator secGenerator = Generator.generateGenerator();
+		Shield secShield = Shield.generateShield();
 
 		emptyNormandy(normandy);
 
@@ -85,26 +94,31 @@ public class CargoTest {
 		normandy.equipMissile(missile);
 		normandy.equipLaser(laser);
 		normandy.equipGenerator(generator);
+		normandy.equipShield(shield);
 
 		normandy.equipArmor(secArmor);
 		normandy.equipMissile(secMissile);
 		normandy.equipLaser(secLaser);
 		normandy.equipGenerator(secGenerator);
+		normandy.equipShield(secShield);
 
 		assertEquals(armor, normandy.getCargoBay().get(0).get(0));
 		assertEquals(missile, normandy.getCargoBay().get(1).get(0));
 		assertEquals(laser, normandy.getCargoBay().get(2).get(0));
 		assertEquals(generator, normandy.getCargoBay().get(3).get(0));
+		assertEquals(shield, normandy.getCargoBay().get(4).get(0));
 
 		assertEquals(secArmor, normandy.getArmor());
 		assertEquals(secMissile, normandy.getEquippedMissile());
 		assertEquals(secLaser, normandy.getEquippedLaser());
 		assertEquals(secGenerator, normandy.getGenerator());
+		assertEquals(secShield, normandy.getShield());
 
 		normandy.compareArmor();
 		normandy.compareMissiles();
 		normandy.compareLasers();
 		normandy.compareGenerators();
+		normandy.compareShields();
 	}
 
 	private void emptyNormandy(Normandy normandy){
@@ -112,6 +126,7 @@ public class CargoTest {
 		normandy.setEquippedMissile(null);
 		normandy.setEquippedLaser(null);
 		normandy.setGenerator(null);
+		normandy.setShield(null);
 	}
 
 	private void unequipNormandy(Normandy normandy){
@@ -119,5 +134,6 @@ public class CargoTest {
 		normandy.unequipMissile();
 		normandy.unequipLaser();
 		normandy.unequipGenerator();
+		normandy.unequipShield();
 	}
 }

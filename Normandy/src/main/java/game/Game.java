@@ -16,6 +16,7 @@ public class Game {
 	PassTurn turn;
 
 	Normandy normandy;
+	GameFunctions gameFunctions;
 
 	public static void main(String[] args){
 		Game game = new Game();
@@ -31,6 +32,7 @@ public class Game {
 		Captain player = new Captain(scan.nextLine());
 		normandy = new Normandy(player);
 		turn = new PassTurn(normandy);
+		gameFunctions = new GameFunctions(normandy, turn);
 		play();
 	}
 
@@ -44,30 +46,18 @@ public class Game {
 			switch(choice.toLowerCase().substring(0, 1)) {
 				case "s":
 					System.out.println("You picked scavenging");
-					scavenge();
+					gameFunctions.scavenge();
 					break;
 				case "e":
 					System.out.println("You picked exploring");
-					explore();
+					gameFunctions.explore();
 					break;
 				case "r":
 					System.out.println("You found a quiet spot to rest");
-					rest();
+					gameFunctions.rest();
 					break;
 			}
 		}
-	}
-
-	private void scavenge() {
-		turn.passScavengingTurn();
-	}
-
-	private void explore() {
-		turn.passRegularTurn();
-	}
-
-	private void rest(){
-		turn.passRestTurn();
 	}
 
 	private void encounterRoll(){
@@ -120,7 +110,11 @@ public class Game {
 			}
 			encounter.checkStatus();
 		}
-		if(enemy.getArmor().getHullHealth() <= 0) encounter.win(normandy);
+		if(enemy.getArmor().getHullHealth() <= 0) {
+			if(encounter.win(normandy)){
+				gameFunctions.lootRoll();
+			}
+		}
 		else if (normandy.getArmor().getHullHealth() <= 0) System.out.println("You lost");
 		else System.out.println("Something went wrong. Investigate pl0x");
 	}

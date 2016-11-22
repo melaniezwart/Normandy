@@ -9,7 +9,9 @@ public class Ship{
 	Laser equippedLaser;
 	Armor armor; //12 to 120 (divide by 3, turn to int, that's your percentage
 	Generator generator;
+	Shield shield;
 	int energy;
+	boolean shieldActive;
 
 /*	public String getName() {
 		return name;
@@ -73,6 +75,22 @@ public class Ship{
 
 	public void setGenerator(Generator generator) {
 		this.generator = generator;
+	}
+
+	public Shield getShield() {
+		return shield;
+	}
+
+	public void setShield(Shield shield) {
+		this.shield = shield;
+	}
+
+	public boolean isShieldActive() {
+		return shieldActive;
+	}
+
+	public void setShieldActive(boolean shieldActive) {
+		this.shieldActive = shieldActive;
 	}
 
 	//TODO make removable shield

@@ -4,6 +4,7 @@ ship\Normandy.class
 game\PassTurn.class
 game\Encounter.class
 ship\Enemy.class
+game\GameFunctions.class
 ship\Armor.class
 ship\Generator.class
 ship\Missile.class
