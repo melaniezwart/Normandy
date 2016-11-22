@@ -4,6 +4,7 @@ import ship.Normandy;
 
 /**
  * Created by mzwart on 18-11-2016.
+ * Class used to generate energy and heat
  */
 public class PassTurn {
 
@@ -30,5 +31,9 @@ public class PassTurn {
 	public void passScavengingTurn(){
 		normandy.generateEnergy(normandy.getGenerator().getEnergyPerTurn()/5);
 		normandy.setHeat(normandy.getHeat() + 3);
+	}
+
+	public void shieldTurn(){
+		normandy.useEnergy(normandy.getShield().getEnergyCost());
 	}
 }

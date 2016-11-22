@@ -16,6 +16,7 @@ public class TestObjectHelper {
 		normandy.setEquippedLaser(Laser.generateLaser());
 		normandy.setArmor(Armor.generateArmor());
 		normandy.setGenerator(Generator.generateGenerator());
+		normandy.setShield(Shield.generateShield());
 		return normandy;
 	}
 

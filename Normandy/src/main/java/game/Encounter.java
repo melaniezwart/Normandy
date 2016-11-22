@@ -152,12 +152,6 @@ public class Encounter {
 		else System.out.println("Your ship is doing fine.");
 	}
 
-
-	//inactive
-	//private void checkEnergy(){
-	//	if(enemy.getEnergy() < 500) System.out.println("Your enemy is running out of energy.");
-	//}
-
 	public void setSwitchcase(int switchcase) {
 		this.switchcase = switchcase;
 	}
@@ -166,7 +160,7 @@ public class Encounter {
 		this.test = test;
 	}
 
-	public void win(Normandy normandy){
+	public boolean win(Normandy normandy){
 		System.out.print("Congrats, you won! ");
 		//experience
 		int experience = rng.nextInt(20);
@@ -178,30 +172,7 @@ public class Encounter {
 		System.out.println(coins + " coins.");
 
 		int lootRoll = rng.nextInt(10);
-		if(lootRoll > 8){
-			System.out.print("You found a new ");
-			switch(rng.nextInt(4)){
-				case 0:
-					normandy.getCargoBay().get(0).add(Armor.generateArmor());
-					System.out.println("armor.");
-					break;
-				case 1:
-					normandy.getCargoBay().get(1).add(Missile.generateMissile());
-					System.out.println("missile.");
-					break;
-				case 2:
-					normandy.getCargoBay().get(2).add(Laser.generateLaser());
-					System.out.println("laser.");
-					break;
-				case 3:
-					normandy.getCargoBay().get(3).add(Generator.generateGenerator());
-					System.out.println("generator.");
-					break;
-			}
-			System.out.println("It has been placed in your cargo bay.");
-
-		}
+		if(lootRoll > 8){ return true;
+		} else return false;
 	}
-
-
 }

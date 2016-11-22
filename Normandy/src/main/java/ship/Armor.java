@@ -3,7 +3,6 @@ package ship;
 import org.apache.commons.lang.math.RandomUtils;
 
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * Created by mzwart on 16-11-2016.
