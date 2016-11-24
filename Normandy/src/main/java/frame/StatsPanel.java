@@ -1,7 +1,9 @@
 package frame;
 
 import game.Game;
-import ship.Normandy;
+import ship.*;
+
+import java.util.List;
 
 /**
  * Created by mzwart on 24-11-2016.
@@ -53,12 +55,76 @@ public class StatsPanel {
 		leftTop += "Missile damage: " + missileDamage + "(" + missileAmount + ")\n";
 		leftTop += "Laser damage: " + laserDamage + "(" + laserEnergy + "p/t)\n";
 		leftTop += "Missile defence: " + missileDefence + " - Laser defence: " + laserDefence + "\n";
-		leftTop += "Energy per turn generated: " + energyPerTurn;
+		leftTop += "Energy per turn generated: " + energyPerTurn + "\n\n";
+		leftTop += "Cargo bay: \n";
+		leftTop += checkArmorBay(normandy.getCargoBay().get(0));
+		leftTop += checkMissileBay(normandy.getCargoBay().get(1));
+		leftTop += checkLaserBay(normandy.getCargoBay().get(2));
+		leftTop += checkGeneratorBay(normandy.getCargoBay().get(3));
 		return leftTop;
 	}
 
 	public void setShieldActive(boolean active){
 		if(active = true) shieldActive = "yes";
 		else shieldActive = "no";
+	}
+
+	public String checkArmorBay(List<Armor> armorList){
+		String armor = "";
+		if(armorList.isEmpty()){
+			return armor;
+		}else{
+			for(int i = 0 ; i < armorList.size() ; i++) {
+				armor += "Armor: " + armorList.get(i).getHullHealth() + " - Mis/Las def: "
+					+ armorList.get(i).getMissileDefence() + "/" + armorList.get(i).getLaserDefence() + "\n";
+
+			}
+			armor += "\n";
+		}
+		return armor;
+	}
+
+	public String checkMissileBay(List<Missile> missileList){
+		String missiles = "";
+		if(missileList.isEmpty()){
+			return missiles;
+		}else{
+			for(int i = 0 ; i < missileList.size() ; i++) {
+				missiles += "Missile damage: " + missileList.get(i).getDamage() + " ("
+					+ missileList.get(i).getAmount() + ")\n";
+
+			}
+			missiles += "\n";
+		}
+		return missiles;
+	}
+
+	public String checkLaserBay(List<Laser> laserList){
+		String lasers = "";
+		if(laserList.isEmpty()){
+			return lasers;
+		}else{
+			for(int i = 0 ; i < laserList.size() ; i++) {
+				lasers += "Laser damage: " + laserList.get(i).getDamage() + " ("
+					+ laserList.get(i).getEnergyCost() + " p/t)\n";
+
+			}
+			lasers += "\n";
+		}
+		return lasers;
+	}
+
+	public String checkGeneratorBay(List<Generator> generatorList){
+		String generators = "";
+		if(generatorList.isEmpty()){
+			return generators;
+		}else{
+			for(int i = 0 ; i < generatorList.size() ; i++) {
+				generators += "Generator energy p/t: " + generatorList.get(i).getEnergyPerTurn() + "\n";
+
+			}
+			generators += "\n";
+		}
+		return generators;
 	}
 }

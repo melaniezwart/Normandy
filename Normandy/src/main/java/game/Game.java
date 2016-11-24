@@ -63,7 +63,7 @@ public class Game {
 					switch (action.toLowerCase().substring(0, 1)) {
 						case "s":
 							frame.getTextArea().append("You picked scavenging\n");
-							gameFunctions.scavenge();
+							frame.getTextArea().append(gameFunctions.scavenge());
 							break;
 						case "e":
 							frame.getTextArea().append("You picked exploring\n");

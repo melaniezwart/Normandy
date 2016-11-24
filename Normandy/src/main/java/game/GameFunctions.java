@@ -21,10 +21,11 @@ public class GameFunctions {
 		this.turn = turn;
 	}
 
-	public void scavenge() {
+	public String scavenge() {
 		turn.passScavengingTurn();
 		if(!inTest)	chance = rng.nextInt(100);
-		if(chance > 80) lootRoll();
+		if(chance > 80) return lootRoll();
+		else return null;
 	}
 
 	public String lootRoll(){
