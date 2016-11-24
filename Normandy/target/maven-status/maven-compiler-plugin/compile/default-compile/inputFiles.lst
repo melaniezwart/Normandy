@@ -1,5 +1,7 @@
 D:\Work\Tests\Normandy\src\main\java\ship\Normandy.java
 D:\Work\Tests\Normandy\src\main\java\ship\Shield.java
+D:\Work\Tests\Normandy\src\main\java\frame\StatsPanel.java
+D:\Work\Tests\Normandy\src\main\java\frame\StartFrame.java
 D:\Work\Tests\Normandy\src\main\java\game\Captain.java
 D:\Work\Tests\Normandy\src\main\java\game\Encounter.java
 D:\Work\Tests\Normandy\src\main\java\ship\Ship.java
@@ -10,5 +12,6 @@ D:\Work\Tests\Normandy\src\main\java\game\Game.java
 D:\Work\Tests\Normandy\src\main\java\ship\Generator.java
 D:\Work\Tests\Normandy\src\main\java\ship\Laser.java
 D:\Work\Tests\Normandy\src\main\java\ship\Armor.java
+D:\Work\Tests\Normandy\src\main\java\frame\ChanDown.java
 D:\Work\Tests\Normandy\src\main\java\ship\Item.java
 D:\Work\Tests\Normandy\src\main\java\ship\Missile.java
