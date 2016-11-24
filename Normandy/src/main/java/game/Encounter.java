@@ -49,7 +49,7 @@ public class Encounter {
 			normandy.getEquippedMissile().setAmount(normandy.getEquippedMissile().getAmount() - 1);
 			normandy.checkAmmo();
 			System.out.println("You fired your missile at the enemy.");
-		} else System.out.println("You do not currently have any missiles equpped.");
+		} else System.out.println("You do not currently have any missiles equipped.");
 	}
 
 	//Enemy attacks
@@ -160,19 +160,21 @@ public class Encounter {
 		this.test = test;
 	}
 
-	public boolean win(Normandy normandy){
-		System.out.print("Congrats, you won! ");
+	public String win(){
+		//end the encounter
+		enemy = null;
+		String result = "Congrats, you won the battle.\n";
 		//experience
 		int experience = rng.nextInt(20);
 		normandy.getCaptain().addExperience(experience);
-		System.out.print("You gained " + experience + " experience points and looted ");
+		result += "You gained " + experience + " experience points and looted ";
 		//loot
 		int coins = rng.nextInt(20);
 		normandy.getCaptain().addCoins(coins);
-		System.out.println(coins + " coins.");
+		result += coins + " coins.\n";
 
 		int lootRoll = rng.nextInt(10);
-		if(lootRoll > 8){ return true;
-		} else return false;
+		if(lootRoll > 8) result += (Game.gameFunctions.lootRoll());
+		return result;
 	}
 }

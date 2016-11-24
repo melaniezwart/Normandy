@@ -27,28 +27,29 @@ public class GameFunctions {
 		if(chance > 80) lootRoll();
 	}
 
-	public void lootRoll(){
+	public String lootRoll(){
 		if(!inTest) lootRoll = rng.nextInt(4);
-		System.out.print("You found a new ");
+		String result = "You found a new ";
 		switch(lootRoll){
 			case 0:
 				normandy.getCargoBay().get(0).add(Armor.generateArmor());
-				System.out.println("armor.");
+				result += "armor.";
 				break;
 			case 1:
 				normandy.getCargoBay().get(1).add(Missile.generateMissile());
-				System.out.println("missile.");
+				result += "missile.";
 				break;
 			case 2:
 				normandy.getCargoBay().get(2).add(Laser.generateLaser());
-				System.out.println("laser.");
+				result += "laser.";
 				break;
 			case 3:
 				normandy.getCargoBay().get(3).add(Generator.generateGenerator());
-				System.out.println("generator.");
+				result += "generator.";
 				break;
 		}
-		System.out.println("It has been placed in your cargo bay.");
+		result += "\nIt has been placed in your cargo bay." + "\n";
+		return result;
 	}
 
 	public void explore() {

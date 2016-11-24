@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="ship.CargoTest" time="0.026" errors="0" skipped="0">
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ship.CargoTest" time="0.001" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="idea.version" value="2016.1.3"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -12,7 +12,7 @@
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
     <property name="file.encoding.pkg" value="sun.io"/>
-    <property name="idea.launcher.port" value="7540"/>
+    <property name="idea.launcher.port" value="7537"/>
     <property name="user.script" value=""/>
     <property name="user.country" value="NL"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
@@ -24,8 +24,7 @@
     <property name="java.endorsed.dirs" value="C:\Program Files\Zulu\zulu-8\jre\lib\endorsed"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.io.tmpdir" value="C:\Users\mzwart\AppData\Local\Temp\"/>
-    <property name="line.separator" value="
-"/>
+    <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 7"/>
@@ -65,8 +64,8 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="ship.CargoTest" name="testCargo" time="0"/>
-  <testcase classname="ship.CargoTest" name="testEquip" time="0.025"/>
-  <testcase classname="ship.CargoTest" name="testUnequip" time="0"/>
-  <testcase classname="ship.CargoTest" name="testReplace" time="0.001"/>
+  <testcase name="testCargo" classname="ship.CargoTest" time="0"/>
+  <testcase name="testEquip" classname="ship.CargoTest" time="0"/>
+  <testcase name="testUnequip" classname="ship.CargoTest" time="0"/>
+  <testcase name="testReplace" classname="ship.CargoTest" time="0.001"/>
 </testsuite>

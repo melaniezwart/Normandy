@@ -105,7 +105,8 @@ public class EncounterTest {
 		Normandy normandy = TestObjectHelper.createNormandy();
 		int startCoins = normandy.getCaptain().getCoins();
 		int startExp = normandy.getCaptain().getExperience();
-		encounter.win(normandy);
+		encounter = new Encounter(normandy, Enemy.generateEnemy());
+		encounter.win();
 		assertNotEquals(startCoins, normandy.getCaptain().getCoins());
 		assertNotEquals(startExp, normandy.getCaptain().getExperience());
 	}
