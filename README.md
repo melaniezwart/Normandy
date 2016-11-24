@@ -1,6 +1,17 @@
 # Normandy
 
 Version:
+0.5.0
+BAM! A frame.
+Still the captain of the same damn ship. The game starts, you pick your name and a big-ass frame pops up.
+Now, if you look to the left, you see your stats. Won't tell you much, I'll probably translate this to useful info later.
+And to the right you see your text screen. At the top you can type in your commands. Start typing.
+Outside of encounters you can scavenge, explore and rest, while in encounters you can fire missiles or lasers, scan the enemy or flee.
+The battle system has been tweaked a bit, a few more functions have been added such as actual functional scavenging.
+The cargo bay has been added but can't be seen yet. Working on that.
+For more info you can see Projects.
+
+Version:
 0.2.1
 The game:
 You're the captain of the Normandy. A space ship. Whoop-dee-friggin-doo.
