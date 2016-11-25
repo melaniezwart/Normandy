@@ -29,6 +29,7 @@ public class ChanDown extends JFrame {
 	private JTextField textField;
 	private JTextArea textArea;
 	private JTextArea leftTop;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the frame.
@@ -43,7 +44,7 @@ public class ChanDown extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		JScrollPane statsPanel = new JScrollPane();
 
 		textField = new JTextField();
@@ -89,7 +90,7 @@ public class ChanDown extends JFrame {
 		textArea.setBackground(Color.DARK_GRAY);
 		textArea.setForeground(Color.WHITE);
 		textArea.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-		textArea.setEditable(false);
+		textArea.setEditable(true);
 		scrollPane.setViewportView(textArea);
 		statsPanel.setViewportView(leftTop);
 		DefaultCaret caret = (DefaultCaret)textArea.getCaret();
@@ -99,6 +100,15 @@ public class ChanDown extends JFrame {
 
 	public JTextArea getTextArea() {
 		return textArea;
+	}
+
+	public void emptyTextArea() {
+		JTextArea newArea = new JTextArea();
+		this.textArea = newArea;
+		textArea.setBackground(Color.DARK_GRAY);
+		textArea.setForeground(Color.WHITE);
+		textArea.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		scrollPane.setViewportView(textArea);
 	}
 
 	public JTextArea getLeftTop(){

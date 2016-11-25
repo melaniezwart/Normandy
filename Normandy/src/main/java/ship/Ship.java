@@ -4,7 +4,7 @@ package ship;
  * Created by mzwart on 16-11-2016.
  */
 public class Ship{
-//	String name;
+
 	Missile equippedMissile;
 	Laser equippedLaser;
 	Armor armor; //12 to 120 (divide by 3, turn to int, that's your percentage
@@ -12,14 +12,6 @@ public class Ship{
 	Shield shield;
 	int energy;
 	boolean shieldActive;
-
-/*	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}*/
 
 	public Missile getEquippedMissile() {
 		return equippedMissile;

@@ -33,7 +33,8 @@ public class EncounterTest {
 		encounter.fireMissile();
 
 		assertEquals(startEnemyHull - totalDamage, encounter.enemy.getArmor().getHullHealth());
-		assertEquals(startMissileAmount - 1, encounter.normandy.getEquippedMissile().getAmount());
+		if(encounter.normandy.getEquippedMissile() != null)
+			assertEquals(startMissileAmount - 1, encounter.normandy.getEquippedMissile().getAmount());
 	}
 
 	@Test
@@ -95,6 +96,8 @@ public class EncounterTest {
 	public void testEnemyRest(){
 		int startHull = encounter.enemy.getArmor().getHullHealth();
 		int startEnergy = encounter.enemy.getEnergy();
+		encounter.enemy.getArmor().damageHull(300);
+		startHull -= 300;
 		encounter.enemyRepairRest();
 		assertEquals(startHull + (startHull / 10), encounter.enemy.getArmor().getHullHealth());
 		assertEquals(startEnergy + (encounter.enemy.getGenerator().getEnergyPerTurn() * 2), encounter.enemy.getEnergy());

@@ -1,6 +1,7 @@
 frame\StartFrame$1.class
 game\Game.class
 ship\Ship.class
+ship\OldCode.class
 ship\Normandy.class
 game\PassTurn.class
 frame\StatsPanel.class

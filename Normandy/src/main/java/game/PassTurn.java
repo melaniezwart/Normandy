@@ -15,25 +15,32 @@ public class PassTurn {
 	}
 
 	public void passRegularTurn(){
-		normandy.generateEnergy(normandy.getGenerator().getEnergyPerTurn()*2);
+		if(normandy.getEnergy() <= normandy.getGenerator().getMaxEnergy())
+			normandy.generateEnergy(normandy.getGenerator().getEnergyPerTurn()*2);
 		normandy.setHeat(normandy.getHeat() + 1);
+		normandy.getArmor().repairHull(0.5);
 	}
 
 	public void passEncounterTurn(){
-		normandy.generateEnergy(normandy.getGenerator().getEnergyPerTurn()/10);
+		if(normandy.getEnergy() <= normandy.getGenerator().getMaxEnergy())
+			normandy.generateEnergy(normandy.getGenerator().getEnergyPerTurn()/10);
 	}
 
 	public void passRestTurn() {
-		normandy.generateEnergy(normandy.getGenerator().getEnergyPerTurn()*2);
+		if(normandy.getEnergy() <= normandy.getGenerator().getMaxEnergy())
+			normandy.generateEnergy(normandy.getGenerator().getEnergyPerTurn()*2);
 		normandy.setHeat(normandy.getHeat() - 10);
+		normandy.getArmor().repairHull(1);
 	}
 
 	public void passScavengingTurn(){
-		normandy.generateEnergy(normandy.getGenerator().getEnergyPerTurn()/5);
+		if(normandy.getEnergy() <= normandy.getGenerator().getMaxEnergy())
+			normandy.generateEnergy(normandy.getGenerator().getEnergyPerTurn()/5);
 		normandy.setHeat(normandy.getHeat() + 3);
+		normandy.getArmor().repairHull(0.5);
 	}
 
-	public void shieldTurn(){
+/*	public void shieldTurn(){
 		normandy.useEnergy(normandy.getShield().getEnergyCost());
-	}
+	}*/
 }
