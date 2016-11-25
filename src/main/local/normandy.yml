@@ -1,0 +1,14 @@
+spring:
+    datasource:
+        schema: normandy
+        url: jdbc:postgresql://${spring.datasource.xa.properties.serverName}:${spring.datasource.xa.properties.portNumber}/${spring.datasource.xa.properties.databaseName}
+        username: shepard
+        password: shepard
+        driverClassName: org.postgresql.Driver
+        xa:
+            properties:
+                serverName: localhost
+                portNumber: 5432
+                databaseName: n7
+flyway:
+    schemas: n7
