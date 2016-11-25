@@ -14,7 +14,6 @@ public class CargoTest {
 	public void testCargo(){
 		Normandy normandy = TestObjectHelper.createNormandy();
 		normandy.getCargoBay().get(0).add(Armor.generateArmor());
-		normandy.listCargoBay();
 	}
 
 	@Test
@@ -70,7 +69,6 @@ public class CargoTest {
 		assertEquals(generator, normandy.getCargoBay().get(3).get(0));
 		assertEquals(shield, normandy.getCargoBay().get(4).get(0));
 
-		normandy.listCargoBay();
 	}
 
 	@Test
@@ -113,12 +111,6 @@ public class CargoTest {
 		assertEquals(secLaser, normandy.getEquippedLaser());
 		assertEquals(secGenerator, normandy.getGenerator());
 		assertEquals(secShield, normandy.getShield());
-
-		normandy.compareArmor();
-		normandy.compareMissiles();
-		normandy.compareLasers();
-		normandy.compareGenerators();
-		normandy.compareShields();
 	}
 
 	private void emptyNormandy(Normandy normandy){

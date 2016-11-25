@@ -2,6 +2,7 @@ game\CaptainTest.class
 game\TestGame.class
 game\EncounterTest.class
 ship\GeneratorTest.class
+game\ValidInputTest.class
 game\TestObjectHelper.class
 game\GameFunctionsTest.class
 ship\CargoTest.class

@@ -4,6 +4,9 @@ import game.Captain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import static java.lang.Integer.valueOf;
 
 /**
  * Created by mzwart on 16-11-2016.
@@ -19,6 +22,7 @@ public class Normandy extends Ship{
 	private List<Generator> generatorBay = new ArrayList<>(3);
 	private List<Shield> shieldBay = new ArrayList<>(3);
 
+	private Random rng = new Random();
 //	int weightAllowed;
 
 	public Normandy (Captain captain){
@@ -28,6 +32,7 @@ public class Normandy extends Ship{
 		this.setEquippedMissile(Missile.generateMissile());
 		this.setGenerator(Generator.generateGenerator());
 		this.setShield(Shield.generateShield());
+		this.setEnergy(getGenerator().getMaxEnergy()/2);
 		cargoBay.add(armorBay);
 		cargoBay.add(missileBay);
 		cargoBay.add(laserBay);
@@ -51,54 +56,59 @@ public class Normandy extends Ship{
 		return cargoBay;
 	}
 
-	//Look at your inventory
-	public void listCargoBay(){
-		//int totalSize = cargoBay.get(0).size() + cargoBay.get(1).size() + cargoBay.get(2).size() + cargoBay.get(3).size();
-		showArmor(cargoBay.get(0));
-		showMissiles(cargoBay.get(1));
-		showLasers(cargoBay.get(2));
-		showGenerators(cargoBay.get(3));
-		showShields(cargoBay.get(4));
+	public boolean itemExists(String action){
+		String type = action.toLowerCase().substring(0, 1);
+		int num = valueOf(action.substring(1, 2)) - 1;
+		try {
+			switch (type) {
+				case "a":
+					if (cargoBay.get(0).isEmpty()) return false;
+					cargoBay.get(0).get(num);
+					break;
+				case "m":
+					if (cargoBay.get(1).isEmpty()) return false;
+					cargoBay.get(1).get(num);
+					break;
+				case "l":
+					if (cargoBay.get(2).isEmpty()) return false;
+					cargoBay.get(2).get(num);
+					break;
+				case "g":
+					if (cargoBay.get(3).isEmpty()) return false;
+					cargoBay.get(3).get(num);
+					break;
+			}
+		} catch(IndexOutOfBoundsException ioobe){
+			return false;
+		}
+		return true;
 	}
 
-	private void showArmor(List<Armor> list){
-		if(list.isEmpty()) System.out.println("You have no armor in your cargo bay.");
-		for(int i = 0 ; i < list.size() ; i++){
-			System.out.print((i + 1) + " Armor - Hull: " + list.get(i).getHullHealth());
-			System.out.print(", Laser def: " + list.get(i).getLaserDefence());
-			System.out.println(", Missile def: " + list.get(i).getLaserDefence());
+	public String equipNewItem(String action){
+		int itemNumber = valueOf(action.substring(1,2)) - 1;
+		List<Armor> armorBay = cargoBay.get(0);
+		List<Missile> missileBay = cargoBay.get(1);
+		List<Laser> laserBay = cargoBay.get(2);
+		List<Generator> generatorBay = cargoBay.get(3);
+		switch(action.substring(0,1).toLowerCase()){
+			case "a":
+				equipArmor(armorBay.get(itemNumber));
+				armorBay.remove(itemNumber);
+				return "You equipped your new armor.";
+			case "m":
+				equipMissile(missileBay.get(itemNumber));
+				missileBay.remove(itemNumber);
+				return "You equipped your new missiles.";
+			case "l":
+				equipLaser(laserBay.get(itemNumber));
+				laserBay.remove(itemNumber);
+				return "You equipped your new laser.";
+			case "g":
+				equipGenerator(generatorBay.get(itemNumber));
+				generatorBay.remove(itemNumber);
+				return "You equipped your new generator.";
 		}
-	}
-
-	private void showMissiles(List<Missile> list){
-		if(list.isEmpty()) System.out.println("You have no missiles in your cargo bay.");
-		for(int i = 0 ; i < list.size() ; i++){
-			System.out.print((i + 1) + " Missiles - Damage: " + list.get(i).getDamage());
-			System.out.println(", Amount: " + list.get(i).getAmount());
-		}
-	}
-
-	private void showLasers(List<Laser> list){
-		if(list.isEmpty()) System.out.println("You have no lasers in your cargo bay.");
-		for(int i = 0 ; i < list.size() ; i++){
-			System.out.print((i + 1) + " Lasers - Damage: " + list.get(i).getDamage());
-			System.out.println(", Energy cost: " + list.get(i).getEnergyCost());
-		}
-	}
-
-	private void showGenerators(List<Generator> list){
-		if(list.isEmpty()) System.out.println("You have no generators in your cargo bay.");
-		for(int i = 0 ; i < list.size() ; i++){
-			System.out.println((i + 1) + " Generator - Energy gen: " + list.get(i).getEnergyPerTurn());
-		}
-	}
-
-	private void showShields(List<Shield> list){
-		if(list.isEmpty()) System.out.println("You have no shields in your cargo bay.");
-		for(int i = 0 ; i < list.size() ; i++){
-			System.out.print((i + 1) + " Shield - Energy cost: " + list.get(i).getEnergyCost());
-			System.out.println(", Protection: " + list.get(i).getProtection());
-		}
+		return "You equipped your new item.";
 	}
 
 	@Override
@@ -164,46 +174,6 @@ public class Normandy extends Ship{
 	public void unequipShield(){
 		cargoBay.get(4).add(this.getShield());
 		this.setShield(null);
-	}
-
-	public void compareArmor(){
-		System.out.println("Equipped:");
-		System.out.print("Armor - Hull: " + getArmor().getMaxHullHealth());
-		System.out.print(", Laser def: " + getArmor().getLaserDefence());
-		System.out.println(", Missile def: " + getArmor().getMissileDefence());
-		System.out.println("In cargo bay:");
-		showArmor(cargoBay.get(0));
-	}
-
-	public void compareMissiles(){
-		System.out.println("Equipped:");
-		System.out.print("Missiles - Damage: " + getEquippedMissile().getDamage());
-		System.out.println(", Amount: " + getEquippedMissile().getAmount());
-		System.out.println("In cargo bay:");
-		showMissiles(cargoBay.get(1));
-	}
-
-	public void compareLasers(){
-		System.out.println("Equipped:");
-		System.out.print("Lasers - Damage: " + getEquippedLaser().getDamage());
-		System.out.println(", Energy cost: " + getEquippedLaser().getEnergyCost());
-		System.out.println("In cargo bay:");
-		showLasers(cargoBay.get(2));
-	}
-
-	public void compareGenerators(){
-		System.out.println("Equipped:");
-		System.out.println("Generator - Energy gen: " + getGenerator().getEnergyPerTurn());
-		System.out.println("In cargo bay:");
-		showGenerators(cargoBay.get(3));
-	}
-
-	public void compareShields(){
-		System.out.println("Equipped:");
-		System.out.print("Shields - Energy cost: " + getShield().getEnergyCost());
-		System.out.println(", Protection: " + getShield().getProtection());
-		System.out.println("In cargo bay:");
-		showShields(cargoBay.get(4));
 	}
 
 	/*	public int getWeightAllowed() {

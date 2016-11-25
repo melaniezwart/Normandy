@@ -20,6 +20,7 @@ public class StatsPanel {
 	private int energy = normandy.getEnergy();
 	private String shieldActive = "no";
 	private int hullHealth = normandy.getArmor().getHullHealth();
+	private int maxHullHealth = normandy.getArmor().getMaxHullHealth();
 	private int missileDamage = normandy.getEquippedMissile().getDamage();
 	private int missileAmount = normandy.getEquippedMissile().getAmount();
 	private int laserDamage = normandy.getEquippedLaser().getDamage();
@@ -49,14 +50,15 @@ public class StatsPanel {
 
 	public String setTopLeftPane(){
 		String leftTop;
-		leftTop = "Captain " + captainName + " of the Normandy.\n";
-		leftTop += "Level: " + level + "\nExperience points: " + experience + "\nCoins: " + coins + "\n\n";
-		leftTop += "Energy: " + energy + "\nHull Health " + hullHealth + "\nShield active: " + shieldActive + "\n\n";
-		leftTop += "Missile damage: " + missileDamage + "(" + missileAmount + ")\n";
-		leftTop += "Laser damage: " + laserDamage + "(" + laserEnergy + "p/t)\n";
-		leftTop += "Missile defence: " + missileDefence + " - Laser defence: " + laserDefence + "\n";
-		leftTop += "Energy per turn generated: " + energyPerTurn + "\n\n";
-		leftTop += "Cargo bay: \n";
+		leftTop = "Captain " + captainName + " of the Normandy.\n"
+		 	+ "Level: " + level + "\nExperience points: " + experience + "\nCoins: " + coins + "\n\n"
+			+ "Energy: " + energy + "\nHull Health " + hullHealth + "(" + (int)(((double)hullHealth/(double)maxHullHealth)*100) + ")"
+			+ "\nShield active: " + shieldActive + "\n\n"
+			+ "Missile damage: " + missileDamage + "(" + missileAmount + ")\n"
+			+ "Laser damage: " + laserDamage + "(" + laserEnergy + "p/t)\n"
+		 	+ "Missile defence: " + missileDefence + " - Laser defence: " + laserDefence + "\n"
+			+ "Energy per turn generated: " + energyPerTurn + "\n\n"
+			+ "Cargo bay: \n";
 		leftTop += checkArmorBay(normandy.getCargoBay().get(0));
 		leftTop += checkMissileBay(normandy.getCargoBay().get(1));
 		leftTop += checkLaserBay(normandy.getCargoBay().get(2));
@@ -65,7 +67,7 @@ public class StatsPanel {
 	}
 
 	public void setShieldActive(boolean active){
-		if(active = true) shieldActive = "yes";
+		if(active) shieldActive = "yes";
 		else shieldActive = "no";
 	}
 
@@ -75,9 +77,9 @@ public class StatsPanel {
 			return armor;
 		}else{
 			for(int i = 0 ; i < armorList.size() ; i++) {
+				armor += "a" + (i+1) + " ";
 				armor += "Armor: " + armorList.get(i).getHullHealth() + " - Mis/Las def: "
 					+ armorList.get(i).getMissileDefence() + "/" + armorList.get(i).getLaserDefence() + "\n";
-
 			}
 			armor += "\n";
 		}
@@ -90,9 +92,9 @@ public class StatsPanel {
 			return missiles;
 		}else{
 			for(int i = 0 ; i < missileList.size() ; i++) {
+				missiles += "m" + (i+1) + " ";
 				missiles += "Missile damage: " + missileList.get(i).getDamage() + " ("
 					+ missileList.get(i).getAmount() + ")\n";
-
 			}
 			missiles += "\n";
 		}
@@ -105,9 +107,9 @@ public class StatsPanel {
 			return lasers;
 		}else{
 			for(int i = 0 ; i < laserList.size() ; i++) {
+				lasers += "l" + (i+1) + " ";
 				lasers += "Laser damage: " + laserList.get(i).getDamage() + " ("
 					+ laserList.get(i).getEnergyCost() + " p/t)\n";
-
 			}
 			lasers += "\n";
 		}
@@ -120,8 +122,8 @@ public class StatsPanel {
 			return generators;
 		}else{
 			for(int i = 0 ; i < generatorList.size() ; i++) {
+				generators += "g" + (i+1) + " ";
 				generators += "Generator energy p/t: " + generatorList.get(i).getEnergyPerTurn() + "\n";
-
 			}
 			generators += "\n";
 		}

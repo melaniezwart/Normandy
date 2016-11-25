@@ -82,8 +82,11 @@ public class Armor implements Item {
 		return armor;
 	}
 
-	public void repairHull(){
+	public void repairHull(double i){
 		int repairAmount = this.getHullHealth() / 10;
-		this.setHullHealth(this.getHullHealth() + repairAmount);
+		if(hullHealth < maxHullHealth)
+			this.setHullHealth(this.getHullHealth() + (int)(repairAmount * i));
+		if(hullHealth > maxHullHealth)
+			this.setHullHealth(maxHullHealth);
 	}
 }

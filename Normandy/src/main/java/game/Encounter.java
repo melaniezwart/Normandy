@@ -26,21 +26,21 @@ public class Encounter {
 	//Player attacks
 	//
 	//
-	public void fireLaser(){
+	public String fireLaser(){
 		if(normandy.getEquippedLaser().getEnergyCost() < normandy.getEnergy()) {
 			normandy.useEnergy(normandy.getEquippedLaser().getEnergyCost());
 			int damage = normandy.getEquippedLaser().getDamage();
 			double damageReduction = (double)enemy.getArmor().getLaserDefence() / 300.0;
 			int totalDamage = damage - (int)(damage * damageReduction);
 			enemy.getArmor().damageHull(totalDamage);
-			System.out.println("You fired your laser at the enemy.");
-		} else System.out.println("You do not have enough energy to fire your lasers.");
+			return "You fired your laser at the enemy.";
+		} else return "You do not have enough energy to fire your lasers.";
 	}
 
-	public void fireMissile(){
-		if(normandy.getEquippedMissile().getAmount() <= 0){
+	public String fireMissile(){
+/*		if(normandy.getEquippedMissile().getAmount() <= 0){
 			normandy.removeMissile();
-		}
+		}*/
 		if(normandy.getEquippedMissile() != null){
 			int damage = normandy.getEquippedMissile().getDamage();
 			double damageReduction = (double)enemy.getArmor().getMissileDefence() / 300.0;
@@ -48,14 +48,14 @@ public class Encounter {
 			enemy.getArmor().damageHull(totalDamage);
 			normandy.getEquippedMissile().setAmount(normandy.getEquippedMissile().getAmount() - 1);
 			normandy.checkAmmo();
-			System.out.println("You fired your missile at the enemy.");
-		} else System.out.println("You do not currently have any missiles equipped.");
+			return "You fired your missile at the enemy.";
+		} else return "You do not currently have any missiles equipped.";
 	}
 
 	//Enemy attacks
 	//
 	//
-	public void enemyFireMissile(){
+	public String enemyFireMissile(){
 		if(enemy.getEquippedMissile().getAmount() <= 0){
 			enemy.removeMissile();
 		}
@@ -66,36 +66,36 @@ public class Encounter {
 			normandy.getArmor().damageHull(totalDamage);
 			enemy.getEquippedMissile().setAmount(enemy.getEquippedMissile().getAmount() - 1);
 			enemy.checkAmmo();
-			System.out.println("Your enemy hit you with a missile.");
+			return "Your enemy hit you with a missile.";
 		} else {
-			System.out.println("Your enemy tried to fire a missile but ran out.");
 			enemyRepairRest();
+			return "Your enemy tried to fire a missile but ran out.";
 		}
 	}
 
-	public void enemyFireLaser(){
+	public String enemyFireLaser(){
 		if(enemy.getEquippedLaser().getEnergyCost() < enemy.getEnergy()) {
 			enemy.useEnergy(enemy.getEquippedLaser().getEnergyCost());
 			int damage = enemy.getEquippedLaser().getDamage();
 			double damageReduction = (double)normandy.getArmor().getLaserDefence() / 300.0;
 			int totalDamage = damage - (int)(damage * damageReduction);
 			normandy.getArmor().damageHull(totalDamage);
-			System.out.println("Your enemy hit you with their lasers.");
+			return "Your enemy hit you with their lasers.";
 		} else {
-			System.out.println("Your enemy tried to fire their lasers but they seem to have run out of energy.");
 			enemyRepairRest();
+			return "Your enemy tried to fire their lasers but they seem to have run out of energy.";
 		}
 	}
 
 	public void enemyRepairRest(){
-		enemy.getArmor().repairHull();
+		enemy.getArmor().repairHull(1);
 		enemy.generateEnergy(enemy.getGenerator().getEnergyPerTurn() * 2);
 	}
 
 	//Scanning
 	//
 	//
-	public void scanEnemy(){
+	public String scanEnemy(){
 		if (test == false){
 			switchcase = rng.nextInt(9);
 		}
@@ -103,53 +103,52 @@ public class Encounter {
 			case 0:
 			case 1:
 			case 2:
-				checkHull();
-				break;
+				return checkHull();
 			case 3:
 			case 4:
 			case 5:
-				checkWeakness();
-				break;
+				return checkWeakness();
 			case 6:
 			case 7:
 			case 8:
-				checkWeapons();
-				break;
+				return checkWeapons();
 		}
+		return "";
 	}
 
-	private void checkHull(){
+	private String checkHull(){
 		int hull = enemy.getArmor().getHullHealth();
-		if (hull > 1250) System.out.println("Your enemy has a lot of health left.");
+		if (hull > 1250) return "Your enemy has a lot of health left.";
 		else if (hull > 750) scanEnemy();
-		else if (hull < 400) System.out.println("Your enemy doesn't have a lot of health left, keep going!");
+		else if (hull < 400) return "Your enemy doesn't have a lot of health left, keep going!";
+		return "";
 	}
 
-	private void checkWeakness(){
-		if(enemy.getArmor().getMissileDefence() > 65) System.out.println("Your enemy has a pretty good defence against missiles.");
-		else if (enemy.getArmor().getLaserDefence() > 65) System.out.println("Your enemy has a pretty good defence against lasers.");
-		else System.out.println("Your enemy has a pretty balanced armor.");
+	private String checkWeakness(){
+		if(enemy.getArmor().getMissileDefence() > 65) return "Your enemy has a pretty good defence against missiles.";
+		else if (enemy.getArmor().getLaserDefence() > 65) return "Your enemy has a pretty good defence against lasers.";
+		else return "Your enemy has a pretty balanced armor.";
 	}
 
-	private void checkWeapons(){
+	private String checkWeapons(){
 		String weakness;
 		if(normandy.getArmor().getLaserDefence() > normandy.getArmor().getMissileDefence()) weakness = "missiles";
 		else weakness = "lasers";
 		String weapon;
 		if(enemy.getEquippedLaser().getDamage() > enemy.getEquippedMissile().getDamage()) weapon = "lasers";
 		else weapon = "missiles";
-		if(weapon.equals(weakness)) System.out.println("The enemy's strength is your weakness, you might want to turn on your shield.");
-		else System.out.println("You seem well protected against the enemy's attacks.");
+		if(weapon.equals(weakness)) return "The enemy's strength is your weakness, you might want to turn on your shield.";
+		else return "You seem well protected against the enemy's attacks.";
 	}
 
-	public void checkStatus(){
+	public String checkStatus(){
 		int currentHull = normandy.getArmor().getHullHealth();
 		int maxHull = normandy.getArmor().getMaxHullHealth();
-		if(currentHull < maxHull / 10) System.out.println("Your ship is critically damaged!");
-		else if(currentHull < maxHull / 4) System.out.println("Your ship is badly damaged.");
-		else if (currentHull < maxHull / 2) System.out.println("Your ship is damaged.");
-		else if (currentHull < (double)maxHull / 1.3) System.out.println("Your ship has suffered a few hits but you're still fine.");
-		else System.out.println("Your ship is doing fine.");
+		if(currentHull < maxHull / 10) return "Your ship is critically damaged!";
+		else if(currentHull < maxHull / 4) return "Your ship is badly damaged.";
+		else if (currentHull < maxHull / 2) return "Your ship is damaged.";
+		else if (currentHull < (double)maxHull / 1.3) return "Your ship has suffered a few hits but you're still fine.";
+		else return "Your ship is doing fine.";
 	}
 
 	public void setSwitchcase(int switchcase) {
@@ -165,13 +164,15 @@ public class Encounter {
 		enemy = null;
 		String result = "Congrats, you won the battle.\n";
 		//experience
-		int experience = rng.nextInt(20);
+		int experience = rng.nextInt(20) + 5;
 		normandy.getCaptain().addExperience(experience);
 		result += "You gained " + experience + " experience points and looted ";
-		//loot
-		int coins = rng.nextInt(20);
+		//loot coins
+		int coins = rng.nextInt(20) + 5;
 		normandy.getCaptain().addCoins(coins);
 		result += coins + " coins.\n";
+		//lose heat
+		normandy.setHeat(5);
 
 		int lootRoll = rng.nextInt(10);
 		if(lootRoll > 8) result += (Game.gameFunctions.lootRoll());

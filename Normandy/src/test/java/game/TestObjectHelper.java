@@ -17,6 +17,7 @@ public class TestObjectHelper {
 		normandy.setArmor(Armor.generateArmor());
 		normandy.setGenerator(Generator.generateGenerator());
 		normandy.setShield(Shield.generateShield());
+		normandy.setEnergy(normandy.getGenerator().getMaxEnergy()/2);
 		return normandy;
 	}
 
